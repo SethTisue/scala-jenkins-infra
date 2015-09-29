@@ -57,7 +57,7 @@ if (node.name =~ /.*-worker-.*/) != nil
     default["jenkinsHomes"][jenkinsHome]["usage_mode"]  = 'exclusive' # windows is a speciality node, don't run jobs here unless they asked for a `windows` node
 
     default["jenkinsHomes"][jenkinsHome]["in_demand_delay"] = 1  # if builds are in queue for even one minute, launch this worker
-    default["jenkinsHomes"][jenkinsHome]["idle_delay"]      = 15 # take worker off-line after 15 min of idling (we're charged by the hour, so no rush)
+    default["jenkinsHomes"][jenkinsHome]["idle_delay"]      = 45 # take worker off-line after 15 min of idling (we're charged by the hour, so no rush)
 
     default["_jenkinsHome"] = jenkinsHome
     default["_jenkinsTmp"]  = jenkinsTmp
