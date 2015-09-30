@@ -1,3 +1,4 @@
+# coding: utf-8
 #
 # Cookbook Name:: scala-jenkins-infra
 # Recipe:: _worker-config-windows-cygwin
@@ -78,6 +79,15 @@ bash 'config lsa' do
   not_if "regtool get '/HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Lsa/Authentication Packages' | grep cyglsa"
 
   notifies :request, 'windows_reboot[7]', :delayed
+end
+
+bash 'git config' do
+  interpreter cygbash
+  # without longpaths enabled we have:
+  # - known problems with `git clean -fdx` failing
+  # - suspected problems with intermittent build failures due to
+  #   very long paths to some classfiles
+  code "git config --global core.longpaths true"
 end
 
 windows_reboot 7 do
